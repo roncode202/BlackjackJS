@@ -25,7 +25,17 @@ const crearDeck = () => {
      JS en este caso _.shuffle regresa el deck en diferente orden (barajeado)
      cada que vez q la funcion crearDeck es llamado (esta libreria se debe
      importar en el proyecto descargando el archivo o utilizando el CDN)*/
-    return _.shuffle(deck);
+    deck =  _.shuffle(deck);
+    return deck;
 }
-
 console.log( crearDeck());
+
+/* note: pedimos la ultima carta que tenemos del deck */
+const pedirCarta = () =>{
+    let carta= deck.pop();
+    console.log(deck);
+    return carta;
+}
+console.log( pedirCarta());
+
+
