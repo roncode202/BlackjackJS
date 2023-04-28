@@ -1,7 +1,7 @@
  /* hack: patron módulo es una funcion autoinvocada el cual nos genera que
  todos nuestras variables y funciones no sean alcanzadas por e usuario 
  desde la consolo del navegador Web. asiendolo mas seguro.*/
-(() => {
+const miApp = (() => {
      /* hack: hace que JS sea estrico a la hora de evaluar el código */
     'use strict'
     /* 
@@ -173,5 +173,10 @@
         // borramos la consola del navegador
         // console.clear();
      });
-
+      /* hack: para poder dar accesolo solo a nuestro juego 
+      y no a toda la logica del juego y codigo se debe retornar
+      las funciones que se quiere hacer pubico */
+    return {
+        nuevoJuego: iniciarJuego
+    }
 })();
