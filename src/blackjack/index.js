@@ -1,4 +1,7 @@
-import { crearDeck } from "./usecases/crear-deck";
+// import { crearDeck } from "./usecases/crear-deck";
+// import { pedirCarta } from "./usecases/pedir-carta";
+// import { valorCarta } from "./usecases/valor-carta";
+import { crearDeck, valorCarta, pedirCarta } from "./usecases";
 // import crearDeck from "./usecases/crear-deck";
 
 /* hack: patron módulo es una funcion autoinvocada el cual nos genera que
@@ -46,24 +49,8 @@ import { crearDeck } from "./usecases/crear-deck";
      btnDetener.disabled = false;
  }
  
- /* note: pedimos la ultima carta que tenemos del deck */
- const pedirCarta = () =>{
-     let carta = deck.pop();
-     return carta;
- };
 
 
- // console.log( pedirCarta());
-  /* note: funcion para asignar un valor a la carta obtenida*/
-  const valorCarta = (carta) => {
-     // eliminamos la ultima letra del string con substring(1,string.lengrh-1)
-     let valor = carta.substring(0, carta.length-1);
-     // validamos que se le asigne el valor de 11 a la letra A y si no
-     // sera solo el valor obtenido.
-     let puntos = (isNaN(valor)) ? (valor === `A`) ? 11 : 10 : valor;
-     // para convertir un numero de tipo string a entero se multiplica * 1
-     return (puntos * 1);
-  };
   const acumularPuntos = (turno, carta) => {
      puntosJugadores[turno] = puntosJugadores[turno] + valorCarta(carta);
      puntosHTML[turno].innerText = puntosJugadores[turno];
@@ -75,11 +62,12 @@ import { crearDeck } from "./usecases/crear-deck";
      addCarta.classList.add(`carta`);
      divCartas[turno].append(addCarta);
   }
+
   /* note: turno de la computador */
   const turnoComputadora = (puntosMinimos) => {
      let puntosComputadora = 0;
      do {
-         const carta = pedirCarta();
+         const carta = pedirCarta(deck);
          puntosComputadora = acumularPuntos(puntosJugadores.length - 1, carta);
          crearCarta(carta, puntosJugadores.length - 1);
          // puntosComputadora = puntosComputadora + valorCarta(carta);
@@ -102,7 +90,7 @@ import { crearDeck } from "./usecases/crear-deck";
   /* note: eventos */
  //  Boton pedir Carta
  btnPedir.addEventListener(`click`, () =>{
-     const carta = pedirCarta();
+     const carta = pedirCarta(deck);
      let puntosJugador = acumularPuntos(0, carta);
      crearCarta(carta, 0);
      // puntosJugador = puntosJugador + valorCarta(carta);
